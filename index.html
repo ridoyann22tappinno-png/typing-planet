@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>タイピング惑星 - 惑星育成ゲーム</title>
+  <!-- CSSファイルを読み込む -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div id="game-container">
+    <h1>🪐 タイピング惑星 🚀</h1>
+    
+    <!-- ハイスコア＆到達レベル表示 -->
+    <div id="highscore-bar">👑 ハイスコア: <span id="highscore-val">0</span>点 （<span id="highscore-level">Lv.1 小さな隕石</span>）</div>
+
+    <div id="status-bar">
+      <div id="timer">制限時間: 60秒</div>
+      <div id="score">スコア: 0</div>
+      <div id="miss">ミス: 0</div>
+    </div>
+
+    <div id="planet-stage">
+      <div id="planet-icon">🪨</div>
+      <div id="planet-name">Lv.1 小さな隕石</div>
+      <div id="gauge-container">
+        <div id="gauge-bar"></div>
+      </div>
+    </div>
+
+    <div id="japanese-word">スペースキーかボタンで開始</div>
+    <div id="romaji-word"></div>
+
+    <button id="action-btn">ゲームスタート</button>
+    <br>
+    <!-- ハイスコアリセットボタン -->
+    <button id="reset-btn" style="margin-top: 10px; background-color: #7f8c8d; font-size: 14px; padding: 8px 20px;">ハイスコアをリセット</button>
+    <br>
+    <!-- 2つのボタンを横並びにするためのコンテナ -->
+    <div id="sub-buttons-container">
+      <!-- 称号一覧を開くボタン -->
+      <button id="title-list-btn" style="background-color: #2980b9; font-size: 14px; padding: 8px 16px;">称号一覧（図鑑）</button>
+      <!-- アップデート情報ボタン -->
+      <button id="update-info-btn" style="background-color: #8e44ad; font-size: 14px; padding: 8px 16px;">アップデート情報</button>
+    </div>
+
+    <!-- パチンコ風確定演出用のレイヤー -->
+    <div id="fever-overlay" class="hidden">
+      <div id="fever-text">👑 激アツ！自己ベスト更新！！ 👑</div>
+    </div>
+
+    <!-- 称号一覧のポップアップ画面 -->
+    <div id="title-modal" class="hidden">
+      <div id="modal-content">
+        <h2>🪐 惑星称号・図鑑一覧 🚀</h2>
+        <div id="title-list-container">
+          <!--ここにJavaScriptでLv1〜45のリストが自動で並びます-->
+        </div>
+        <button id="close-modal-btn">閉じる</button>
+      </div>
+    </div>
+
+    <!-- アップデート情報のポップアップ画面 -->
+    <div id="update-modal" class="hidden">
+      <div id="update-modal-content">
+        <h2>🚀 アップデート情報 📢</h2>
+        <div id="update-list-container">
+          <!--ここにJavaScriptでアップデート履歴が自動で並びます-->
+        </div>
+        <button id="close-update-modal-btn">閉じる</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 右下に小さく表示するバージョン＆開発者クレジット -->
+  <div style="position: fixed; bottom: 10px; right: 15px; font-size: 12px; color: rgba(255, 255, 255, 0.5); pointer-events: none; text-align: right;">
+    v1.1<br>
+    開発者：タッピンオ
+  </div>
+
+  <!-- JavaScriptファイルをモジュールとして読み込む -->
+  <script type="module" src="script.js"></script>
+</body>
+</html>

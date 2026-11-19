@@ -1,0 +1,340 @@
+body {
+  font-family: 'Hiragino Kaku Gothic ProN', 'Meiryo', sans-serif;
+  text-align: center;
+  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+  color: white;
+  margin: 0;
+  padding-top: 20px;
+  user-select: none;
+  min-height: 100vh;
+}
+
+#game-container {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 25px;
+  border-radius: 20px;
+  display: inline-block;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+  min-width: 600px;
+  position: relative;
+}
+
+#status-bar {
+  display: flex;
+  justify-content: space-around;
+  font-size: 18px;
+  margin-bottom: 10px;
+  background: rgba(0, 0, 0, 0.3);
+  padding: 10px;
+  border-radius: 10px;
+}
+
+#highscore-bar {
+  font-size: 16px;
+  color: #f1c40f;
+  margin-bottom: 15px;
+  font-weight: bold;
+}
+
+#planet-stage {
+  margin: 15px 0;
+}
+
+#planet-icon {
+  font-size: 70px;
+  transition: transform 0.3s ease;
+  display: inline-block;
+}
+
+#planet-icon.bounce {
+  transform: scale(1.2);
+}
+
+#planet-name {
+  font-size: 20px;
+  color: #f1c40f;
+  margin-top: 5px;
+  font-weight: bold;
+}
+
+#gauge-container {
+  background: #444;
+  border-radius: 10px;
+  height: 18px;
+  width: 80%;
+  margin: 10px auto;
+  overflow: hidden;
+  border: 1px solid #7f8c8d;
+}
+
+#gauge-bar {
+  background: linear-gradient(90deg, #3498db, #2ecc71);
+  height: 100%;
+  width: 0%;
+  transition: width 0.2s ease;
+}
+
+#japanese-word {
+  font-size: 34px;
+  font-weight: bold;
+  margin-bottom: 5px;
+  min-height: 45px;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+}
+
+#romaji-word {
+  font-size: 26px;
+  font-family: monospace;
+  letter-spacing: 3px;
+  margin-bottom: 20px;
+  min-height: 35px;
+  color: #ecf0f1;
+}
+
+.typed {
+  color: #f39c12;
+}
+
+.untyped {
+  color: #bdc3c7;
+}
+
+.miss-flash {
+  background-color: rgba(231, 76, 60, 0.4) !important;
+}
+
+button {
+  padding: 12px 35px;
+  font-size: 18px;
+  font-weight: bold;
+  background-color: #e67e22;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(230, 126, 34, 0.4);
+  transition: background 0.2s;
+}
+
+button:hover {
+  background-color: #d35400;
+}
+
+/* 称号一覧とアップデート情報ボタンを横並びにするスタイル */
+#sub-buttons-container {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 5px;
+}
+
+/* 確定演出用のオーバーレイ */
+#fever-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.85);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+  animation: bgFlash 0.5s infinite alternate;
+  border-radius: 20px;
+}
+
+#fever-overlay.hidden {
+  display: none;
+}
+
+/* 激アツ文字の演出 */
+#fever-text {
+  font-size: 32px;
+  font-weight: bold;
+  color: #f1c40f;
+  text-shadow: 0 0 20px #e74c3c, 0 0 40px #f39c12, 0 0 60px #f1c40f;
+  animation: textZoom 0.3s infinite alternate;
+  text-align: center;
+  padding: 20px;
+  border: 4px dashed #f1c40f;
+  background: rgba(255, 215, 0, 0.2);
+}
+
+/* 背景がパカパカ光るアニメーション */
+@keyframes bgFlash {
+  0% { background: rgba(231, 76, 60, 0.7); }
+  50% { background: rgba(241, 196, 15, 0.7); }
+  100% { background: rgba(52, 152, 219, 0.7); }
+}
+
+/* 文字がブルブル・ビカビカ拡大縮小するアニメーション */
+@keyframes textZoom {
+  0% { transform: scale(1); }
+  100% { transform: scale(1.1); }
+}
+
+/* --- 称号一覧（図鑑）のモーダル画面スタイル --- */
+#title-modal {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.85);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 998;
+  border-radius: 20px;
+}
+
+#title-modal.hidden {
+  display: none;
+}
+
+#modal-content {
+  background: #2c3e50;
+  width: 90%;
+  height: 85%;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  padding: 15px;
+  box-sizing: border-box;
+  border: 2px solid #f1c40f;
+}
+
+#modal-content h2 {
+  color: #f1c40f;
+  margin: 0 0 10px 0;
+  font-size: 18px;
+  text-align: center;
+}
+
+#title-list-container {
+  flex: 1;
+  overflow-y: auto;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px;
+  padding-right: 5px;
+}
+
+/* 称号の個別カード */
+.title-card {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 10px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 14px;
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* 解禁済み（ロック解除）のスタイル */
+.title-card.unlocked {
+  background: rgba(46, 204, 113, 0.2);
+  border-color: #2ecc71;
+  color: #2ecc71;
+  font-weight: bold;
+}
+
+#close-modal-btn {
+  margin-top: 10px;
+  background: #e74c3c;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+}
+#close-modal-btn:hover {
+  background: #c0392b;
+}
+
+/* --- アップデート情報のモーダル画面スタイル --- */
+#update-modal {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.85);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 998;
+  border-radius: 20px;
+}
+
+#update-modal.hidden {
+  display: none;
+}
+
+#update-modal-content {
+  background: #2c3e50;
+  width: 90%;
+  height: 85%;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  padding: 15px;
+  box-sizing: border-box;
+  border: 2px solid #9b59b6;
+}
+
+#update-modal-content h2 {
+  color: #9b59b6;
+  margin: 0 0 10px 0;
+  font-size: 18px;
+  text-align: center;
+}
+
+#update-list-container {
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-right: 5px;
+}
+
+.update-card {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 12px;
+  border-radius: 8px;
+  text-align: left;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.update-card .update-header {
+  font-weight: bold;
+  color: #f1c40f;
+  margin-bottom: 4px;
+  font-size: 14px;
+}
+
+.update-card .update-text {
+  font-size: 13px;
+  color: #ecf0f1;
+}
+
+#close-update-modal-btn {
+  margin-top: 10px;
+  background: #c0392b;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+}
+#close-update-modal-btn:hover {
+  background: #a93226;
+}
